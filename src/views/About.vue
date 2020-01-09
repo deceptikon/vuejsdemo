@@ -1,19 +1,28 @@
 <template>
-  <div class="about">
-    <h1>This is an !!!! page</h1>
-    <button @click="onBtnClick">Получить данные</button>
-    <Product :data="posts" @buyBtnPressed="buyBtnPressed"/>
-  </div>
+  <MyTemplate>
+    <div class="about">
+      <h1>This is an !!!! page</h1>
+      <button @click="onBtnClick">
+        Получить данные
+      </button>
+      <Product
+        :data="posts"
+        @buyBtnPressed="buyBtnPressed"
+      />
+    </div>
+  </MyTemplate>
 </template>
 
 <script>
 import axios from 'axios';
 import Product from '@/components/Product.vue';
+import MyTemplate from '@/components/MyTemplate.vue'
 
 export default {
   name: 'About',
   components: {
-    Product
+    Product,
+    MyTemplate,
   },
   props: {
     msg: String
