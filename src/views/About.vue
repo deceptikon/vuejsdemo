@@ -1,52 +1,72 @@
 <template>
   <div class="about">
     <h1>This is an !!!! page</h1>
-    <button @click="onBtnClick">test</button>
-    <div class="posts" v-for="post in posts" v-bind:key="post.id">
-      <h5>{{ post.title }}</h5>
-      <blockquote>
-        {{ post.body }}
-      </blockquote>
-    </div>
+    <button @click="onBtnClick">Получить данные</button>
+    <Product :data="posts" @buyBtnPressed="buyBtnPressed"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Product from '@/components/Product.vue';
 
 export default {
   name: 'About',
+  components: {
+    Product
+  },
   props: {
     msg: String
   },
   data() {
     return {
-      apiUrl: 'https://jsonplaceholder.typicode.com/posts',
+      // apiUrl: 'https://jsonplaceholder.typicode.com/posts',
+      apiUrl: 'http://127.0.0.1:8000/api',
       test: 'test',
-      posts: []
+      posts: [],
+      cart: []
     };
   },
 
   methods: {
+    buyBtnPressed(id) {
+      console.log('кнопку нажал', id);
+      axios.put(`${this.apiUrl}/cart/`, { product: id })
+      .then((response) => {
+        console.warn('Ответ на добавление в корзину: ', response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
     getData() {
-      axios.get(this.apiUrl)
+      axios.get(`${this.apiUrl}/tovars/`)
       .then((response) => {
         // handle success
-        // eslint-disable-next-line no-console
         console.log('Ответ: ', response);
         this.posts = response.data;
       })
       .catch(function (error) {
         // handle error
-        // eslint-disable-next-line no-console
         console.log(error);
       })
       .finally(function () {
         // always executed
       });
     },
+    getCart() {
+      axios.get(`${this.apiUrl}/cart/`)
+      .then((response) => {
+        console.warn('Ответ: ', response);
+        this.cart = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
     onBtnClick(e) {
       this.getData();
+      this.getCart();
       // eslint-disable-next-line no-console
       console.warn('button clicked', e);
       // eslint-disable-next-line no-console
