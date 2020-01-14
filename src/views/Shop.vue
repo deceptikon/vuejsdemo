@@ -47,12 +47,24 @@ export default {
   },
 
   methods: {
+    mapCart(badCart) {
+      const goodCart = badCart.map(record => {
+        return {
+          quantity: record.fields.quantity,
+          product_id: record.fields.product
+        };
+      });
+      return goodCart;
+    },
     buyBtnPressed(id) {
       console.log('кнопку нажал', id);
       axios.put(`${this.apiUrl}/cart/`, { product: id })
       .then((response) => {
         console.warn('Ответ на добавление в корзину: ', response);
-        this.getCart();
+        const prods = JSON.parse(response.data.data);
+        const goodProds = this.mapCart(prods);
+        this.cart = goodProds;
+        // this.getCart();
       })
       .catch(function (error) {
         console.log(error);
