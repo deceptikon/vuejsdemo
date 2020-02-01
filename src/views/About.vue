@@ -2,6 +2,11 @@
   <MyTemplate>
     <div class="about">
       <h1>This is an !!!! page</h1>
+      <v-app>
+        <v-content>
+          <v-container>Hello world</v-container>
+        </v-content>
+      </v-app>
       <button @click="onBtnClick">
         Получить данные
       </button>
