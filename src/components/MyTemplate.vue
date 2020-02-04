@@ -4,7 +4,7 @@
       Header
       <div id="nav">
         <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
+        <router-link to="/about">About</router-link> |
         <router-link to="/shop">Shop</router-link>
       </div>
     </div>
@@ -49,5 +49,5 @@ export default {
     background: #333;
     color: #FFF;
     padding: 10px 10px;
-  } 
+  }
 </style>

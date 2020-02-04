@@ -4,7 +4,7 @@
       <button @click="onBtnClick">
         Получить данные
       </button>
-      <Cart :cartData="cart" :products="products"/>
+      <!-- <Cart :cartData="cart" :products="products"/> -->
       <div class="clear" />
     </template>
     <div class="shop">
@@ -18,30 +18,34 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'vuex';
 import Product from '@/components/Product.vue';
-import Cart from '@/components/Cart.vue';
+// import Cart from '@/components/Cart.vue';
 import TemplateWrapper from '@/components/MyTemplate.vue'
 
 export default {
   name: 'About',
   components: {
     Product,
-    Cart,
+    // Cart,
     TemplateWrapper,
   },
   props: {
     msg: String
   },
   mounted() {
-    this.getData();
-    this.getCart();
+    // this.getData();
+    // this.getCart();
+  },
+  computed: {
+    ...mapState(['products']),
   },
   data() {
     return {
       // apiUrl: 'https://jsonplaceholder.typicode.com/posts',
       apiUrl: 'http://127.0.0.1:8000/api',
       test: 'test',
-      products: [],
+      // products: [],
       cart: []
     };
   },
@@ -96,7 +100,7 @@ export default {
       });
     },
     onBtnClick(e) {
-      this.getData();
+      // this.getData();
       this.getCart();
       // eslint-disable-next-line no-console
       console.warn('button clicked', e);
